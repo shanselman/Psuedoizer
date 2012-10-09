@@ -1,0 +1,4 @@
+Psuedoizer
+==========
+
+Psuedoizer - Psuedointernationalization Utility
