@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+	<xsd:schema id="root" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+		<xsd:element name="root" msdata:IsDataSet="true">
+			<xsd:complexType>
+				<xsd:choice maxOccurs="unbounded">
+					<xsd:element name="data">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+								<xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" />
+							<xsd:attribute name="type" type="xsd:string" />
+							<xsd:attribute name="mimetype" type="xsd:string" />
+						</xsd:complexType>
+					</xsd:element>
+					<xsd:element name="resheader">
+						<xsd:complexType>
+							<xsd:sequence>
+								<xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+							</xsd:sequence>
+							<xsd:attribute name="name" type="xsd:string" use="required" />
+						</xsd:complexType>
+					</xsd:element>
+				</xsd:choice>
+			</xsd:complexType>
+		</xsd:element>
+	</xsd:schema>
+	<resheader name="ResMimeType">
+		<value>text/microsoft-resx</value>
+	</resheader>
+	<resheader name="Version">
+		<value>1.0.0.0</value>
+	</resheader>
+	<resheader name="Reader">
+		<value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<resheader name="Writer">
+		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+	</resheader>
+	<data name="Accounts.Activity.AccountSummary.CertificatesOfDeposit.Label.AccountName">
+		<value>Account Name:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.CertificatesOfDeposit.Label.AccountNumber">
+		<value>Account Number:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.CertificatesOfDeposit.Label.AsOfDate">
+		<value>As of Date:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.CertificatesOfDeposit.Label.CurrentBalance">
+		<value>Current Balance:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.CertificatesOfDeposit.Label.InterestYtd">
+		<value>Interest Earned YTD:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.CertificatesOfDeposit.Label.MaturityDate">
+		<value>Maturity Date:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.CheckingSavingsAndMoneyMarket.Label.AccountName">
+		<value>Account Name:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.CheckingSavingsAndMoneyMarket.Label.AccountNumber">
+		<value>Account Number:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.CheckingSavingsAndMoneyMarket.Label.AsOfDate">
+		<value>As of Date:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.CheckingSavingsAndMoneyMarket.Label.AvailableBalance">
+		<value>Available Balance:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.CheckingSavingsAndMoneyMarket.Label.CurrentBalance">
+		<value>Today's Beginning Balance:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.ConsumerLoans.Label.AccountName">
+		<value>Account Name:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.ConsumerLoans.Label.AccountNumber">
+		<value>Account Number:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.ConsumerLoans.Label.AsOfDate">
+		<value>As of Date:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.ConsumerLoans.Label.CurrentBalance">
+		<value>Current Balance:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.LinesOfCreditAndHomeEquityLoans.Label.AccountName">
+		<value>Account Name:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.LinesOfCreditAndHomeEquityLoans.Label.AccountNumber">
+		<value>Account Number:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.LinesOfCreditAndHomeEquityLoans.Label.AsOfDate">
+		<value>As of Date:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.LinesOfCreditAndHomeEquityLoans.Label.AvailableCredit">
+		<value>Available Credit:</value>
+	</data>
+	<data name="Accounts.Activity.AccountSummary.LinesOfCreditAndHomeEquityLoans.Label.CurrentBalance">
+		<value>Current Balance:</value>
+	</data>
+	<data name="Accounts.Activity.Filter.Label.Account">
+		<value>Account:</value>
+	</data>
+	<data name="Accounts.Activity.Filter.Label.FromDate">
+		<value>From:</value>
+	</data>
+	<data name="Accounts.Activity.Filter.Value.CurrentCycle">
+		<value>Current Cycle</value>
+	</data>
+	<data name="Accounts.Activity.Filter.Value.FiveDays">
+		<value>5 Days</value>
+	</data>
+	<data name="Accounts.Activity.Filter.Value.PreviousCycle">
+		<value>Previous Cycle</value>
+	</data>
+	<data name="Accounts.Activity.Filter.Value.TenDays">
+		<value>10 Days</value>
+	</data>
+	<data name="Accounts.Activity.Instructions">
+		<value>Activity for your account is displayed below.  Click the check number to view a check image.</value>
+	</data>
+	<data name="Accounts.Activity.Title">
+		<value>Account Activity</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.CertificatesOfDeposit.Label.Credit">
+		<value>Deposit</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.CertificatesOfDeposit.Label.Date">
+		<value>Date</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.CertificatesOfDeposit.Label.Debit">
+		<value>Withdrawal</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.CertificatesOfDeposit.Label.Description">
+		<value>Description</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.CertificatesOfDeposit.Label.Number">
+		<value>No.</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.CheckingSavingsAndMoneyMarket.Label.Balance">
+		<value>Balance</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.CheckingSavingsAndMoneyMarket.Label.Credit">
+		<value>Deposit</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.CheckingSavingsAndMoneyMarket.Label.Date">
+		<value>Date</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.CheckingSavingsAndMoneyMarket.Label.Debit">
+		<value>Withdrawal</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.CheckingSavingsAndMoneyMarket.Label.Description">
+		<value>Description</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.CheckingSavingsAndMoneyMarket.Label.Number">
+		<value>Check No.</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.ConsumerLoans.Label.Credit">
+		<value>Credit</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.ConsumerLoans.Label.Date">
+		<value>Date</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.ConsumerLoans.Label.Debit">
+		<value>Debit</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.ConsumerLoans.Label.Description">
+		<value>Description</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.LinesOfCreditAndHomeEquityLoans.Label.Credit">
+		<value>Credit</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.LinesOfCreditAndHomeEquityLoans.Label.Date">
+		<value>Date</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.LinesOfCreditAndHomeEquityLoans.Label.Debit">
+		<value>Debit</value>
+	</data>
+	<data name="Accounts.Activity.TransactionDetail.LinesOfCreditAndHomeEquityLoans.Label.Description">
+		<value>Description</value>
+	</data>
+	<data name="Accounts.CheckImageViewer.Instructions">
+		<value>Account: {0} | Check Number: {1} | Date Posted: {2:d} | Amount: {3:C2}</value>
+	</data>
+	<data name="Accounts.CheckImageViewer.Label.Print">
+		<value>Print</value>
+	</data>
+	<data name="Accounts.CheckImageViewer.Label.Zoomin">
+		<value>Zoom In</value>
+	</data>
+	<data name="Accounts.CheckImageViewer.Label.Zoomout">
+		<value>Zoom Out</value>
+	</data>
+	<data name="Accounts.CheckImageViewer.Title">
+		<value>Check Images</value>
+	</data>
+	<data name="Accounts.Download.Action.Download">
+		<value>Download</value>
+	</data>
+	<data name="Accounts.Download.DownloadType.Default">
+		<value>Select A Download Type</value>
+	</data>
+	<data name="Accounts.Download.FieldName.FromDate">		
+		<value>From Date</value>	
+	</data>
+	<data name="Accounts.Download.FieldName.ToDate">		
+		<value>To Date</value>	
+	</data>
+	<data name="Accounts.Download.Filter.Label.Account">
+		<value>Account:</value>
+	</data>
+	<data name="Accounts.Download.Filter.Label.FromDate">
+		<value>From:</value>
+	</data>
+	<data name="Accounts.Download.Filter.Label.ToDate">
+		<value>To:</value>
+	</data>
+	<data name="Accounts.Download.Filter.Label.Type">
+		<value>Download To:</value>
+	</data>
+	<data name="Accounts.Download.Instructions">
+		<value>To download transaction information, select an account, date range and download type and then click on {0}.</value>
+	</data>
+	<data name="Accounts.Download.Title">
+		<value>Transaction Download</value>
+	</data>
+	<data name="Accounts.Statements.Action.ViewStatement">
+		<value>View Statement</value>
+	</data>
+	<data name="Accounts.Statements.Instructions">
+		<value>Select an account below to view or download your available online statements.</value>
+	</data>
+	<data name="Accounts.Statements.Selection.Label.Account">
+		<value>Account:</value>
+	</data>
+	<data name="Accounts.Statements.Selection.Label.StatementPeriod">
+		<value>Statement Period:</value>
+	</data>
+	<data name="Accounts.Statements.Title">
+		<value>Statements</value>
+	</data>
+	<data name="Accounts.Summary.AccountSummary.DepositBalanceSummary.Header">
+		<value>Deposit Balances as of {0}</value>
+	</data>
+	<data name="Accounts.Summary.AccountSummary.DepositBalanceSummary.Label.AvailableBalance">
+		<value>Available Balance:</value>
+	</data>
+	<data name="Accounts.Summary.AccountSummary.DepositBalanceSummary.Label.CurrentBalance">
+		<value>Today's Beginning Balance:</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.Assets.ColumnHeader.Account">
+		<value>Account</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.Assets.ColumnHeader.CurrentBalance">
+		<value>Today's Beginning Balance</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.Assets.Footer.Totals">
+		<value>Totals</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.Assets.SectionHeader">
+		<value>Assets</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CertificatesOfDeposit.ColumnHeader.Account">
+		<value>Account</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CertificatesOfDeposit.ColumnHeader.CurrentBalance">
+		<value>Current Balance</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CertificatesOfDeposit.ColumnHeader.Interest">
+		<value>Maturity Date</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CertificatesOfDeposit.ColumnHeader.InterestYtd">
+		<value>Interest Earned YTD</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CertificatesOfDeposit.Footer.Totals">
+		<value>Totals</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CertificatesOfDeposit.SectionHeader">
+		<value>CD's and IRA's</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CheckingSavingsAndMoneyMarket.ColumnHeader.Account">
+		<value>Account</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CheckingSavingsAndMoneyMarket.ColumnHeader.AvailableBalance">
+		<value>Available Balance</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CheckingSavingsAndMoneyMarket.ColumnHeader.CurrentBalance">
+		<value>Today's Beginning Balance</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CheckingSavingsAndMoneyMarket.ColumnHeader.InterestYtd">
+		<value>Interest Earned YTD</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CheckingSavingsAndMoneyMarket.Footer.Totals">
+		<value>Totals</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.CheckingSavingsAndMoneyMarket.SectionHeader">
+		<value>Checking, Savings, NOW and Money Market Accounts</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.ConsumerLoans.ColumnHeader.Account">
+		<value>Account</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.ConsumerLoans.ColumnHeader.AmountDue">
+		<value>Amount Due</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.ConsumerLoans.ColumnHeader.CurrentBalance">
+		<value>Current Balance</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.ConsumerLoans.ColumnHeader.DateDue">
+		<value>Date Due</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.ConsumerLoans.Footer.Totals">
+		<value>Totals</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.ConsumerLoans.SectionHeader">
+		<value>Loans</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.Liabilities.ColumnHeader.Account">
+		<value>Account</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.Liabilities.ColumnHeader.CurrentBalance">
+		<value>Current Balance</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.Liabilities.Footer.Totals">
+		<value>Totals</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.Liabilities.SectionHeader">
+		<value>Liabilities</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.LinesOfCreditAndHomeEquityLoans.ColumnHeader.Account">
+		<value>Account</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.LinesOfCreditAndHomeEquityLoans.ColumnHeader.AmountDue">
+		<value>Amount Due</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.LinesOfCreditAndHomeEquityLoans.ColumnHeader.AvailableCredit">
+		<value>Available Credit</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.LinesOfCreditAndHomeEquityLoans.ColumnHeader.CurrentBalance">
+		<value>Current Balance</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.LinesOfCreditAndHomeEquityLoans.ColumnHeader.DateDue">
+		<value>Date Due</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.LinesOfCreditAndHomeEquityLoans.Footer.Totals">
+		<value>Totals</value>
+	</data>
+	<data name="Accounts.Summary.BalanceList.LinesOfCreditAndHomeEquityLoans.SectionHeader">
+		<value>Lines of Credit and Home Equity Loans</value>
+	</data>
+	<data name="Accounts.Summary.Filter.Header">
+		<value>Account Display</value>
+	</data>
+	<data name="Accounts.Summary.Filter.Label.ByAccountType">
+		<value>Display By Account Type</value>
+	</data>
+	<data name="Accounts.Summary.Filter.Label.ByAssetLiability">
+		<value>Display By Asset/Liability</value>
+	</data>
+	<data name="Accounts.Summary.Instructions.NewMessage">
+		<value>Welcome, you have &lt;a href=&quot;{0}&quot;&gt;one new message&lt;/a&gt;.</value>
+	</data>
+	<data name="Accounts.Summary.Instructions.NewMessages">
+		<value>Welcome, you have &lt;a href=&quot;{0}&quot;&gt;{1} new messages&lt;/a&gt;.</value>
+	</data>
+	<data name="Accounts.Summary.Instructions.NoNewMessages">
+		<value>You have &lt;a href=&quot;{0}&quot;&gt;no new messages&lt;/a&gt;.</value>
+	</data>
+	<data name="Accounts.Summary.Title">
+		<value>Account Summary</value>
+	</data>
+</root>
