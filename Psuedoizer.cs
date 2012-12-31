@@ -24,14 +24,16 @@ namespace Pseudo.Globalization
 				Console.WriteLine("         but still readable Euro-like language to exercise your i18n code");
 				Console.WriteLine("         without a formal translation.");
 				Console.WriteLine(String.Empty);
-				Console.WriteLine("Psuedoizer.exe infile outfile");
+				Console.WriteLine("Psuedoizer.exe infile outfile [/b]");
 				Console.WriteLine("    Example:");
 				Console.WriteLine("    Psuedoizer.exe strings.en.resx strings.ja-JP.resx");
+				Console.WriteLine("    /b - Include blank resources");
 				System.Environment.Exit(1);
 			}
 
 			string fileName = args[0];
 			string fileSaveName = args[1];
+			bool IncludeBlankResources = (args.Length >= 3 && args[2] == "/b");
 
 			// Open the input file.
             ResXResourceReader reader = new ResXResourceReader ( fileName ) ;
@@ -59,10 +61,10 @@ namespace Pseudo.Globalization
                             
 							// Make sure the key name does not start with the
 							// "$" or ">>" meta characters and is not an empty
-							// string.
+							// string (or we're explicitly including empty strings).
 							if ( ( false == KeyString.StartsWith ( ">>" ) ) &&
 								( false == KeyString.StartsWith ( "$"  ) ) &&
-								( ""    != dic.Value.ToString ( )        )  )
+								( IncludeBlankResources || "" != dic.Value.ToString() )  )
 							{
 								// We've got a winner.
 								textResourcesList.Add ( dic.Key , dic.Value ) ;
