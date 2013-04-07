@@ -1,0 +1,364 @@
+﻿<#@ template debug="true" hostSpecific="true" #>
+<#@ output extension=".resx" #>
+<#@ Assembly Name="System.Core" #>
+<#@ Assembly Name="System.Windows.Forms" #>
+<#@ Assembly Name="System.Xml" #>
+<#@ Assembly Name="System.Xml.Linq" #>
+<#@ import namespace="System" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Diagnostics" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Xml" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Collections" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.Resources" #>
+<# string filename = Path.Combine(Path.GetDirectoryName(this.Host.TemplateFile), "PutResxFileNameHere");#>
+<# Write("<?xml version=\"1.0\" encoding=\"utf-8\"?>");#>
+<root>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <# 			
+	// Open the input file.
+	var rr = new ResXResourceReader(filename);
+
+    // Allocate the list for this instance.
+	Dictionary<string,string> textResourcesList = new Dictionary<string, string>();                   
+
+	// Get the enumerator.  If this throws an ArguementException
+	// it means the file is not a .RESX file.
+	IDictionaryEnumerator enumerator = rr.GetEnumerator ( ) ;
+                                              
+				
+                
+	// Run through the file looking for only true text related
+	// properties and only those with values set.
+	foreach ( DictionaryEntry dic in rr )
+	{
+		// Only consider this entry if the value is something.
+		if ( null != dic.Value )
+		{
+			// Is this a System.String.
+			if ( "System.String" == dic.Value.GetType().ToString())
+			{
+				String KeyString = dic.Key.ToString ( ) ;
+                            
+				// Make sure the key name does not start with the
+				// "$" or ">>" meta characters and is not an empty
+				// string.
+				if ( ( false == KeyString.StartsWith ( ">>" ) ) &&
+					( false == KeyString.StartsWith ( "$"  ) ) &&
+					( ""    != dic.Value.ToString ( )        )  )
+				{
+					// We've got a winner.
+					textResourcesList.Add ( dic.Key.ToString() , ConvertToFakeInternationalized(dic.Value.ToString()));
+				}
+                            
+				// Special case the Windows Form "$this.Text" or
+				// I don't get the form titles.
+				if ( 0 == String.Compare ( KeyString,"$this.Text"))
+				{
+					textResourcesList.Add ( dic.Key.ToString() , ConvertToFakeInternationalized(dic.Value.ToString()));
+				}
+                            
+			}
+		}
+	}#>
+
+  <# foreach(var entry in textResourcesList){ #>
+   <data name="<#= entry.Key #>" xml:space="preserve">
+    <#=(new System.Xml.Linq.XElement("value", entry.Value)).ToString()#>
+  </data>
+  <# } #>
+  </root>
+<#+
+  			public String ConvertToFakeInternationalized ( String inputString )
+			{
+				// Calculate the extra space necessary for pseudo
+				// internationalization.  The rules, according to "Developing
+				// International Software" is that < 10  characters you should grow
+				// by 400% while >= 10 characters should grow by 30%.
+            
+				int OrigLen = inputString.Length ;
+				int PseudoLen = 0 ;
+				if ( OrigLen < 10 )
+				{
+					PseudoLen = (OrigLen * 4) + OrigLen ;
+				}
+				else
+				{
+					PseudoLen = ((int)(OrigLen * 0.3)) + OrigLen ;
+				}
+            
+				var sb = new System.Text.StringBuilder ( PseudoLen ) ;
+            
+				// The pseudo string will always start with a "[" and end
+				// with a "]" so you can tell if strings are not built
+				// correctly in the UI.
+				sb.Append ( "[" ) ;
+            
+				bool waitingForEndBrace = false;
+				bool waitingForGreaterThan = false;
+				foreach ( Char currChar in inputString )
+				{
+					switch ( currChar )
+					{
+						case '{' :
+							waitingForEndBrace = true;
+							break;
+						case '}' :
+							waitingForEndBrace = false;
+							break;
+						case '<' :
+							waitingForGreaterThan = true;
+							break;
+						case '>' :
+							waitingForGreaterThan = false;
+							break;
+					}
+					if(waitingForEndBrace || waitingForGreaterThan) 
+					{
+						sb.Append(currChar);
+						continue;
+					}
+					switch ( currChar )
+					{
+						case 'A' :
+							sb.Append ( 'Å' ) ;
+							break ;
+						case 'B' :
+							sb.Append ( 'ß') ;
+							break ;
+						case 'C' :
+							sb.Append ( 'C' ) ;
+							break ;
+						case 'D' :
+							sb.Append ( 'Đ' ) ;
+							break ;
+						case 'E' :
+							sb.Append ( 'Ē' ) ;
+							break ;
+						case 'F' :
+							sb.Append ( 'F' ) ;
+							break ;
+						case 'G' :
+							sb.Append ( 'Ğ' ) ;
+							break ;
+						case 'H' :
+							sb.Append ( 'Ħ' ) ;
+							break ;
+						case 'I' :
+							sb.Append ( 'Ĩ' ) ;
+							break ;
+						case 'J' :
+							sb.Append ( 'Ĵ' ) ;
+							break ;
+						case 'K' :
+							sb.Append ( 'Ķ' ) ;
+							break ;
+						case 'L' :
+							sb.Append ( 'Ŀ' ) ;
+							break ;
+						case 'M' :
+							sb.Append ( 'M' ) ;
+							break ;
+						case 'N' :
+							sb.Append ( 'Ń' ) ;
+							break ;
+						case 'O' :
+							sb.Append ( 'Ø' ) ;
+							break ;
+						case 'P' :
+							sb.Append ( 'P' ) ;
+							break ;
+						case 'Q' :
+							sb.Append ( 'Q' ) ;
+							break ;
+						case 'R' :
+							sb.Append ( 'Ŗ' ) ;
+							break ;
+						case 'S' :
+							sb.Append ( 'Ŝ' ) ;
+							break ;
+						case 'T' :
+							sb.Append ( 'Ŧ' ) ;
+							break ;
+						case 'U' :
+							sb.Append ( 'Ů' ) ;
+							break ;
+						case 'V' :
+							sb.Append ( 'V' ) ;
+							break ;
+						case 'W' :
+							sb.Append ( 'Ŵ' ) ;
+							break ;
+						case 'X' :
+							sb.Append ( 'X' ) ;
+							break ;
+						case 'Y' :
+							sb.Append ( 'Ÿ' ) ;
+							break ;
+						case 'Z' :
+							sb.Append ( 'Ż' ) ;
+							break ;
+
+
+						case 'a' :
+							sb.Append ( 'ä' ) ;
+							break ;
+						case 'b' :
+							sb.Append ( 'þ') ;
+							break ;
+						case 'c' :
+							sb.Append ( 'č' ) ;
+							break ;
+						case 'd' :
+							sb.Append ( 'đ' ) ;
+							break ;
+						case 'e' :
+							sb.Append ( 'ę' ) ;
+							break ;
+						case 'f' :
+							sb.Append ( 'ƒ' ) ;
+							break ;
+						case 'g' :
+							sb.Append ( 'ģ' ) ;
+							break ;
+						case 'h' :
+							sb.Append ( 'ĥ' ) ;
+							break ;
+						case 'i' :
+							sb.Append ( 'į' ) ;
+							break ;
+						case 'j' :
+							sb.Append ( 'ĵ' ) ;
+							break ;
+						case 'k' :
+							sb.Append ( 'ĸ' ) ;
+							break ;
+						case 'l' :
+							sb.Append ( 'ľ' ) ;
+							break ;
+						case 'm' :
+							sb.Append ( 'm' ) ;
+							break ;
+						case 'n' :
+							sb.Append ( 'ŉ' ) ;
+							break ;
+						case 'o' :
+							sb.Append ( 'ő' ) ;
+							break ;
+						case 'p' :
+							sb.Append ( 'p' ) ;
+							break ;
+						case 'q' :
+							sb.Append ( 'q' ) ;
+							break ;
+						case 'r' :
+							sb.Append ( 'ř' ) ;
+							break ;
+						case 's' :
+							sb.Append ( 'ş' ) ;
+							break ;
+						case 't' :
+							sb.Append ( 'ŧ' ) ;
+							break ;
+						case 'u' :
+							sb.Append ( 'ū' ) ;
+							break ;
+						case 'v' :
+							sb.Append ( 'v' ) ;
+							break ;
+						case 'w' :
+							sb.Append ( 'ŵ' ) ;
+							break ;
+						case 'x' :
+							sb.Append ( 'χ' ) ;
+							break ;
+						case 'y' :
+							sb.Append ( 'y' ) ;
+							break ;
+						case 'z' :
+							sb.Append ( 'ž' ) ;
+							break ;
+						default:
+							sb.Append ( currChar ) ;
+							break ;
+					}
+				}
+            
+				// Poke on extra text to fill out the string.
+				const String PadStr = " !!!" ;
+				int PadCount = (PseudoLen - OrigLen - 2) / PadStr.Length ;
+				if ( PadCount < 2 )
+				{
+					PadCount = 2 ;
+				}
+            
+				for ( int x = 0 ; x < PadCount ; x++ )
+				{
+					sb.Append ( PadStr ) ;
+				}
+            
+				// Pop on the trailing "]"
+				sb.Append ( "]" ) ;
+            
+				return ( sb.ToString ( ) ) ;
+			}
+#>
