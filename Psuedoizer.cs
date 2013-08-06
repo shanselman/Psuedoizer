@@ -6,35 +6,35 @@ using System.Text;
 
 namespace Pseudo.Globalization
 {
-    ///Takes an English resource file (resx) and creates an artificial");/
-    ///but still readable Euro-like language to exercise your i18n code");
-    ///without a formal translation.");
-    class Psuedoizer
-    {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        [STAThread]
-        static void Main(string[] args)
-        {
-            Console.WriteLine("Psuedoizer: Adapted from MSDN BugSlayer 2004-Apr i18n Article.");
+	///Takes an English resource file (resx) and creates an artificial");/
+	///but still readable Euro-like language to exercise your i18n code");
+	///without a formal translation.");
+	class Psuedoizer
+	{
+		/// <summary>
+		/// The main entry point for the application.
+		/// </summary>
+		[STAThread]
+		static void Main(string[] args)
+		{
+			Console.WriteLine("Psuedoizer: Adapted from MSDN BugSlayer 2004-Apr i18n Article.");
             if (args.Length < 2)
-            {
-                Console.WriteLine("Purpose: Takes an English resource file (resx) and creates an artificial");
-                Console.WriteLine("         but still readable Euro-like language to exercise your i18n code");
-                Console.WriteLine("         without a formal translation.");
-                Console.WriteLine(String.Empty);
+			{
+				Console.WriteLine("Purpose: Takes an English resource file (resx) and creates an artificial");
+				Console.WriteLine("         but still readable Euro-like language to exercise your i18n code");
+				Console.WriteLine("         without a formal translation.");
+				Console.WriteLine(String.Empty);
                 Console.WriteLine("Psuedoizer.exe infile outfile [/b] [/a]");
-                Console.WriteLine("    Example:");
-                Console.WriteLine("    Psuedoizer.exe strings.en.resx strings.ja-JP.resx");
-                Console.WriteLine("    /b - Include blank resources");
+				Console.WriteLine("    Example:");
+				Console.WriteLine("    Psuedoizer.exe strings.en.resx strings.ja-JP.resx");
+				Console.WriteLine("    /b - Include blank resources");
                 Console.WriteLine("    /a - Append only new entries");
-                System.Environment.Exit(1);
-            }
+				System.Environment.Exit(1);
+			}
 
-            string fileName = args[0];
-            string fileSaveName = args[1];
-            bool IncludeBlankResources = (args.Length >= 3 && args[2] == "/b");
+			string fileName = args[0];
+			string fileSaveName = args[1];
+			bool IncludeBlankResources = (args.Length >= 3 && args[2] == "/b");
             bool appenOnlyNewEntries = false;
 
             for (int i = 2; i < args.Length; i++)
@@ -46,58 +46,58 @@ namespace Pseudo.Globalization
             }
 
 
-            // Open the input file.
+			// Open the input file.
             ResXResourceReader reader = new ResXResourceReader(fileName);
-
-            try
-            {
-                // Get the enumerator.  If this throws an ArguementException
-                // it means the file is not a .RESX file.
+                                   
+			try
+			{
+				// Get the enumerator.  If this throws an ArguementException
+				// it means the file is not a .RESX file.
                 IDictionaryEnumerator enumerator = reader.GetEnumerator();
-
-                // Allocate the list for this instance.
+                                              
+				// Allocate the list for this instance.
                 SortedList textResourcesList = new SortedList();
-
-                // Run through the file looking for only true text related
-                // properties and only those with values set.
+                
+				// Run through the file looking for only true text related
+				// properties and only those with values set.
                 foreach (DictionaryEntry dic in reader)
-                {
-                    // Only consider this entry if the value is something.
+				{
+					// Only consider this entry if the value is something.
                     if (null != dic.Value)
-                    {
-                        // Is this a System.String.
+					{
+						// Is this a System.String.
                         if ("System.String" == dic.Value.GetType().ToString())
-                        {
+						{
                             String KeyString = dic.Key.ToString();
-
-                            // Make sure the key name does not start with the
-                            // "$" or ">>" meta characters and is not an empty
-                            // string (or we're explicitly including empty strings).
+                            
+							// Make sure the key name does not start with the
+							// "$" or ">>" meta characters and is not an empty
+							// string (or we're explicitly including empty strings).
                             if ((false == KeyString.StartsWith(">>")) &&
                                 (false == KeyString.StartsWith("$")) &&
                                 (IncludeBlankResources || "" != dic.Value.ToString()))
-                            {
-                                // We've got a winner.
+							{
+								// We've got a winner.
                                 textResourcesList.Add(dic.Key, Psuedoizer.ConvertToFakeInternationalized(dic.Value.ToString()));
-                            }
-
-                            // Special case the Windows Form "$this.Text" or
-                            // I don't get the form titles.
+							}
+                            
+							// Special case the Windows Form "$this.Text" or
+							// I don't get the form titles.
                             if (0 == String.Compare(KeyString, "$this.Text"))
-                            {
+							{
                                 textResourcesList.Add(dic.Key, dic.Value);
-                            }
-
-                        }
-                    }
-                }
-
-                // It's entirely possible that there are no text strings in the
-                // .ResX file.
+							}
+                            
+						}
+					}
+				}
+                
+				// It's entirely possible that there are no text strings in the
+				// .ResX file.
                 if (textResourcesList.Count > 0)
-                {
+				{
                     if (null != fileSaveName)
-                    {
+					{
                         //check if we are only appending
                         if (appenOnlyNewEntries && File.Exists(fileSaveName))
                         {
@@ -115,7 +115,7 @@ namespace Pseudo.Globalization
                             outReader.Close();
 
 
-                            // Create the new file.
+						// Create the new file.
                             ResXResourceWriter writer = new ResXResourceWriter(fileSaveName);
                             foreach (DictionaryEntry textdic in textResourcesList)
                             {
@@ -130,97 +130,97 @@ namespace Pseudo.Globalization
 
                         }
                         else
-                        {
+						{
                             // Create the new file.
                             ResXResourceWriter writer = new ResXResourceWriter(fileSaveName);
 
                             foreach (DictionaryEntry textdic in textResourcesList)
                             {
                                 writer.AddResource(textdic.Key.ToString(), textdic.Value.ToString());
-                            }
-
+						}
+						
                             writer.Generate();
                             writer.Close();
                         }
-                        Console.WriteLine("Converted " + textResourcesList.Count + " text resource(s).");
-                    }
-                }
-                else
-                {
-                    Console.Write("WARNING: No text resources found in " + fileName);
-                    System.Environment.Exit(2);
-                }
-            }
+						Console.WriteLine("Converted " + textResourcesList.Count + " text resource(s).");
+					}
+				}                
+				else
+				{
+					Console.Write("WARNING: No text resources found in " + fileName);
+					System.Environment.Exit(2);
+				}
+			}
             catch (Exception e)
-            {
-                Console.Write(e.ToString());
-                System.Environment.Exit(1);
-            }
-        }
-        /// <summary>
-        /// Converts a string to a pseudo internationized string.
-        /// </summary>
-        /// <remarks>
-        /// Primarily for latin based languages.  This will need updating to
-        /// work with Eastern languages.
-        /// </remarks>
-        /// <param name="inputString">
-        /// The string to use as a base.
-        /// </param>
-        /// <returns>
-        /// A longer and twiddled string.
-        /// </returns>
+			{
+				Console.Write(e.ToString());
+				System.Environment.Exit(1);
+			}
+		}
+			/// <summary>
+			/// Converts a string to a pseudo internationized string.
+			/// </summary>
+			/// <remarks>
+			/// Primarily for latin based languages.  This will need updating to
+			/// work with Eastern languages.
+			/// </remarks>
+			/// <param name="inputString">
+			/// The string to use as a base.
+			/// </param>
+			/// <returns>
+			/// A longer and twiddled string.
+			/// </returns>
         public static String ConvertToFakeInternationalized(String inputString)
-        {
-            // Calculate the extra space necessary for pseudo
-            // internationalization.  The rules, according to "Developing
-            // International Software" is that < 10  characters you should grow
-            // by 400% while >= 10 characters should grow by 30%.
-
+			{
+				// Calculate the extra space necessary for pseudo
+				// internationalization.  The rules, according to "Developing
+				// International Software" is that < 10  characters you should grow
+				// by 400% while >= 10 characters should grow by 30%.
+            
             int OrigLen = inputString.Length;
             int PseudoLen = 0;
             if (OrigLen < 10)
-            {
+				{
                 PseudoLen = (OrigLen * 4) + OrigLen;
-            }
-            else
-            {
+				}
+				else
+				{
                 PseudoLen = ((int)(OrigLen * 0.3)) + OrigLen;
-            }
-
+				}
+            
             StringBuilder sb = new StringBuilder(PseudoLen);
-
-            // The pseudo string will always start with a "[" and end
-            // with a "]" so you can tell if strings are not built
-            // correctly in the UI.
+            
+				// The pseudo string will always start with a "[" and end
+				// with a "]" so you can tell if strings are not built
+				// correctly in the UI.
             sb.Append("[");
-
-            bool waitingForEndBrace = false;
-            bool waitingForGreaterThan = false;
+            
+				bool waitingForEndBrace = false;
+				bool waitingForGreaterThan = false;
             foreach (Char currChar in inputString)
-            {
+				{
                 switch (currChar)
-                {
+					{
                     case '{':
-                        waitingForEndBrace = true;
-                        break;
+							waitingForEndBrace = true;
+							break;
                     case '}':
-                        waitingForEndBrace = false;
-                        break;
+							waitingForEndBrace = false;
+							break;
                     case '<':
-                        waitingForGreaterThan = true;
-                        break;
+							waitingForGreaterThan = true;
+							break;
                     case '>':
-                        waitingForGreaterThan = false;
-                        break;
-                }
+							waitingForGreaterThan = false;
+							break;
+					}
                 if (waitingForEndBrace || waitingForGreaterThan)
-                {
-                    sb.Append(currChar);
-                    continue;
-                }
+					{
+						sb.Append(currChar);
+						continue;
+					}
                 switch (currChar)
-                {
+					{
                     case 'A':
                         sb.Append('Å');
                         break;
@@ -379,30 +379,30 @@ namespace Pseudo.Globalization
                     case 'z':
                         sb.Append('ž');
                         break;
-                    default:
+						default:
                         sb.Append(currChar);
                         break;
-                }
-            }
-
-            // Poke on extra text to fill out the string.
+					}
+				}
+            
+				// Poke on extra text to fill out the string.
             const String PadStr = " !!!";
             int PadCount = (PseudoLen - OrigLen - 2) / PadStr.Length;
             if (PadCount < 2)
-            {
+				{
                 PadCount = 2;
-            }
-
+				}
+            
             for (int x = 0; x < PadCount; x++)
-            {
+				{
                 sb.Append(PadStr);
-            }
-
-            // Pop on the trailing "]"
+				}
+            
+				// Pop on the trailing "]"
             sb.Append("]");
-
+            
             return (sb.ToString());
-        }
-    }
-
+			}
+		}
+	
 }
