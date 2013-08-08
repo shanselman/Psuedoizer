@@ -85,9 +85,18 @@ namespace Pseudo.Globalization
         {
             // Open the input file.
             ResXResourceReader reader = new ResXResourceReader(fileName);
-            // Get the enumerator.  If this throws an ArguementException
-            // it means the file is not a .RESX file.
-            IDictionaryEnumerator enumerator = reader.GetEnumerator();
+            try
+            {
+                // Get the enumerator.  If this throws an ArguementException
+                // it means the file is not a .RESX file.
+                IDictionaryEnumerator enumerator = reader.GetEnumerator();
+            }
+            catch (ArgumentException ex)
+            {
+                Console.WriteLine("WARNING: could not parse " + fileName);
+                Console.WriteLine("         " + ex.Message);
+                return;
+            }
 
             // Allocate the list for this instance.
             SortedList textResourcesList = new SortedList();
@@ -148,8 +157,7 @@ namespace Pseudo.Globalization
             }
             else
             {
-                Console.Write("WARNING: No text resources found in " + fileName);
-                System.Environment.Exit(2);
+                Console.WriteLine("WARNING: No text resources found in " + fileName);
             }
         }
         /// <summary>
