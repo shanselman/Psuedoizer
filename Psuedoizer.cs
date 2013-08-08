@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Linq;
 using System.Resources;
 using System.IO;
 using System.Collections;
 using System.Text;
+using System.Globalization;
 
 namespace Pseudo.Globalization
 {
@@ -23,94 +25,131 @@ namespace Pseudo.Globalization
                 Console.WriteLine("Purpose: Takes an English resource file (resx) and creates an artificial");
                 Console.WriteLine("         but still readable Euro-like language to exercise your i18n code");
                 Console.WriteLine("         without a formal translation.");
-                Console.WriteLine(String.Empty);
+                Console.WriteLine();
                 Console.WriteLine("Psuedoizer.exe infile outfile [/b]");
                 Console.WriteLine("    Example:");
                 Console.WriteLine("    Psuedoizer.exe strings.en.resx strings.ja-JP.resx");
                 Console.WriteLine("    /b - Include blank resources");
+                Console.WriteLine();
+                Console.WriteLine("Alternative: use a directory and a language code");
+                Console.WriteLine("Psuedoizer.exe dir lang [/b]");
+                Console.WriteLine("    Example:");
+                Console.WriteLine("    Psuedoizer.exe . ja-JP");
+                Console.WriteLine("    /b - Include blank resources");
                 System.Environment.Exit(1);
             }
 
-            string fileName = args[0];
-            string fileSaveName = args[1];
-            bool IncludeBlankResources = (args.Length >= 3 && args[2] == "/b");
-
-            // Open the input file.
-            ResXResourceReader reader = new ResXResourceReader(fileName);
+            string fileNameOrDirectory = args[0];
+            string fileSaveNameOrLangCode = args[1];
+            bool includeBlankResources = (args.Length >= 3 && args[2] == "/b");
 
             try
             {
-                // Get the enumerator.  If this throws an ArguementException
-                // it means the file is not a .RESX file.
-                IDictionaryEnumerator enumerator = reader.GetEnumerator();
-
-                // Allocate the list for this instance.
-                SortedList textResourcesList = new SortedList();
-
-                // Run through the file looking for only true text related
-                // properties and only those with values set.
-                foreach (DictionaryEntry dic in reader)
+                if (Directory.Exists(fileNameOrDirectory))
                 {
-                    // Only consider this entry if the value is something.
-                    if (null != dic.Value)
-                    {
-                        // Is this a System.String.
-                        if ("System.String" == dic.Value.GetType().ToString())
-                        {
-                            String KeyString = dic.Key.ToString();
-
-                            // Make sure the key name does not start with the
-                            // "$" or ">>" meta characters and is not an empty
-                            // string (or we're explicitly including empty strings).
-                            if ((false == KeyString.StartsWith(">>")) &&
-                                (false == KeyString.StartsWith("$")) &&
-                                (IncludeBlankResources || "" != dic.Value.ToString()))
-                            {
-                                // We've got a winner.
-                                textResourcesList.Add(dic.Key, dic.Value);
-                            }
-
-                            // Special case the Windows Form "$this.Text" or
-                            // I don't get the form titles.
-                            if (0 == String.Compare(KeyString, "$this.Text"))
-                            {
-                                textResourcesList.Add(dic.Key, dic.Value);
-                            }
-
-                        }
-                    }
-                }
-
-                // It's entirely possible that there are no text strings in the
-                // .ResX file.
-                if (textResourcesList.Count > 0)
-                {
-                    if (null != fileSaveName)
-                    {
-                        // Create the new file.
-                        ResXResourceWriter writer =
-                            new ResXResourceWriter(fileSaveName);
-
-                        foreach (DictionaryEntry textdic in textResourcesList)
-                        {
-                            writer.AddResource(textdic.Key.ToString(), Psuedoizer.ConvertToFakeInternationalized(textdic.Value.ToString()));
-                        }
-
-                        writer.Generate();
-                        writer.Close();
-                        Console.WriteLine("Converted " + textResourcesList.Count + " text resource(s).");
-                    }
+                    TranslateMultipleFiles(fileNameOrDirectory, fileSaveNameOrLangCode, includeBlankResources);
                 }
                 else
                 {
-                    Console.Write("WARNING: No text resources found in " + fileName);
-                    System.Environment.Exit(2);
+                    TranslateSingleFile(fileNameOrDirectory, fileSaveNameOrLangCode, includeBlankResources);
                 }
             }
             catch (Exception e)
             {
                 Console.Write(e.ToString());
                 System.Environment.Exit(1);
+            }
+        }
+
+        private static readonly CultureInfo[] allCultures = CultureInfo.GetCultures(CultureTypes.SpecificCultures);
+        private static void TranslateMultipleFiles(string directory, string langCode, bool includeBlankResources)
+        {
+            foreach (var file in Directory.GetFiles(directory, "*.resx"))
+            {
+                // Check if it's the neutral resource file
+                var fileName = Path.GetFileNameWithoutExtension(file);
+                var extension = Path.GetExtension(fileName).Trim(' ', '.').ToLower();
+                if (string.IsNullOrEmpty(extension) || !allCultures.Any(c => c.Name.ToLower() == extension || c.TwoLetterISOLanguageName.ToLower() == extension))
+                {
+                    TranslateSingleFile(file, string.Format("{0}\\{1}.{2}.resx", directory, fileName, langCode), includeBlankResources);
+                }
+            }
+
+            foreach (var subDir in Directory.GetDirectories(directory))
+            {
+                TranslateMultipleFiles(subDir, langCode, includeBlankResources);
+            }
+        }
+
+        private static void TranslateSingleFile(string fileName, string fileSaveName, bool includeBlankResources)
+        {
+            // Open the input file.
+            ResXResourceReader reader = new ResXResourceReader(fileName);
+            // Get the enumerator.  If this throws an ArguementException
+            // it means the file is not a .RESX file.
+            IDictionaryEnumerator enumerator = reader.GetEnumerator();
+
+            // Allocate the list for this instance.
+            SortedList textResourcesList = new SortedList();
+
+            // Run through the file looking for only true text related
+            // properties and only those with values set.
+            foreach (DictionaryEntry dic in reader)
+            {
+                // Only consider this entry if the value is something.
+                if (null != dic.Value)
+                {
+                    // Is this a System.String.
+                    if ("System.String" == dic.Value.GetType().ToString())
+                    {
+                        String KeyString = dic.Key.ToString();
+
+                        // Make sure the key name does not start with the
+                        // "$" or ">>" meta characters and is not an empty
+                        // string (or we're explicitly including empty strings).
+                        if ((false == KeyString.StartsWith(">>")) &&
+                            (false == KeyString.StartsWith("$")) &&
+                            (includeBlankResources || "" != dic.Value.ToString()))
+                        {
+                            // We've got a winner.
+                            textResourcesList.Add(dic.Key, dic.Value);
+                        }
+
+                        // Special case the Windows Form "$this.Text" or
+                        // I don't get the form titles.
+                        if (0 == String.Compare(KeyString, "$this.Text"))
+                        {
+                            textResourcesList.Add(dic.Key, dic.Value);
+                        }
+
+                    }
+                }
+            }
+
+            // It's entirely possible that there are no text strings in the
+            // .ResX file.
+            if (textResourcesList.Count > 0)
+            {
+                if (null != fileSaveName)
+                {
+                    // Create the new file.
+                    ResXResourceWriter writer =
+                        new ResXResourceWriter(fileSaveName);
+
+                    foreach (DictionaryEntry textdic in textResourcesList)
+                    {
+                        writer.AddResource(textdic.Key.ToString(), Psuedoizer.ConvertToFakeInternationalized(textdic.Value.ToString()));
+                    }
+
+                    writer.Generate();
+                    writer.Close();
+                    Console.WriteLine("Converted " + textResourcesList.Count + " text resource(s).");
+                }
+            }
+            else
+            {
+                Console.Write("WARNING: No text resources found in " + fileName);
+                System.Environment.Exit(2);
             }
         }
         /// <summary>
