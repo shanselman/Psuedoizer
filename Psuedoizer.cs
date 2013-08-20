@@ -141,6 +141,9 @@ namespace Pseudo.Globalization
             {
                 if (null != fileSaveName)
                 {
+                    if (File.Exists(fileSaveName))
+                        File.Delete(fileSaveName);
+
                     // Create the new file.
                     ResXResourceWriter writer =
                         new ResXResourceWriter(fileSaveName);
@@ -152,7 +155,7 @@ namespace Pseudo.Globalization
 
                     writer.Generate();
                     writer.Close();
-                    Console.WriteLine("Converted " + textResourcesList.Count + " text resource(s).");
+                    Console.WriteLine(fileName + ": converted " + textResourcesList.Count + " text resource(s).");
                 }
             }
             else
