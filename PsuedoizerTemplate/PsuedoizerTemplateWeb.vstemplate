@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<VSTemplate Version="3.0.0" Type="Item" xmlns="http://schemas.microsoft.com/developer/vstemplate/2005" xmlns:sdk="http://schemas.microsoft.com/developer/vstemplate-sdkextension/2010">
+	<TemplateData>
+		<Name>Psuedoizer Configuration</Name>
+		<Description>PSuedoizer Configuration File</Description>
+		<Icon>PsuedoizerTemplate.ico</Icon>
+		<TemplateID>80F5C0BD-5F61-49BF-84E5-D5B2A6752472</TemplateID>
+		<ProjectType>Web</ProjectType>
+		<RequiredFrameworkVersion>2.0</RequiredFrameworkVersion>
+		<NumberOfParentCategoriesToRollUp>1</NumberOfParentCategoriesToRollUp>
+		<DefaultName>Psuedoizer.config</DefaultName>
+	</TemplateData>
+	<TemplateContent>
+		<ProjectItem ReplaceParameters="false" ItemType="None">Psuedoizer.config</ProjectItem>
+	</TemplateContent>
+</VSTemplate>
