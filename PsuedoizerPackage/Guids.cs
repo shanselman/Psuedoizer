@@ -2,7 +2,7 @@
 // MUST match guids.h
 using System;
 
-namespace JamesJohnson.PsuedoizerPackage
+namespace PsuedoizerPackage
 {
     static class GuidList
     {

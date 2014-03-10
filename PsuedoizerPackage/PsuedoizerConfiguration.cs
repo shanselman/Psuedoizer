@@ -9,7 +9,7 @@ using System.Xml;
 using System.Xml.Linq;
 using EnvDTE;
 
-namespace JamesJohnson.PsuedoizerPackage
+namespace PsuedoizerPackage
 {
 	class PsuedoizerConfiguration
 	{
@@ -22,6 +22,8 @@ namespace JamesJohnson.PsuedoizerPackage
 			_project = project;
 		}
 
+		internal string SkipReason { get; private set; }
+
 		public bool Enable { get; set; }
 		public string Language { get; set; }
 		public bool IgnoreBlankResources { get; set; }
@@ -32,6 +34,8 @@ namespace JamesJohnson.PsuedoizerPackage
 
 			if (item == null)
 			{
+				SkipReason = "Configuration not found";
+
 				// Load default values
 				Enable = false;
 				IgnoreBlankResources = true;
@@ -49,9 +53,20 @@ namespace JamesJohnson.PsuedoizerPackage
 
 			// Now that we have a config file for the project
 			// only disable the extension for the project explicitly
-			Enable = GetBooleanValue(doc.Root.Element("enabled"), true);
-			IgnoreBlankResources = GetBooleanValue(doc.Root.Element("ignoreBlankValues"), true);
-			Language = GetStringValue(doc.Root.Element("language"), "xx");
+			var root = doc.Root;
+
+			if (root == null)
+			{
+				SkipReason = "Malformed configuration file";
+				return;
+			}
+
+			Enable = GetBooleanValue(root.Element("enabled"), true);
+			IgnoreBlankResources = GetBooleanValue(root.Element("ignoreBlankValues"), true);
+			Language = GetStringValue(root.Element("language"), "xx");
+
+			if (!Enable)
+				SkipReason = "Disabled in configuration file";
 		}
 
 		private bool GetBooleanValue(XElement e, bool defaultValue)

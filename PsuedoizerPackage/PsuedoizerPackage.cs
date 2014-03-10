@@ -1,20 +1,12 @@
 ﻿using System;
-using System.Diagnostics;
-using System.Globalization;
 using System.Runtime.InteropServices;
-using System.ComponentModel.Design;
-using System.Windows.Forms;
 using System.Windows.Threading;
 using EnvDTE;
 using EnvDTE80;
-using JamesJohnson.PsuedoizerPackage.Options;
-using Microsoft.Win32;
-using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell.Interop;
-using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Shell;
 
-namespace JamesJohnson.PsuedoizerPackage
+namespace PsuedoizerPackage
 {
 	/// <summary>
 	/// This is the class that implements the package exposed by this assembly.
@@ -34,13 +26,12 @@ namespace JamesJohnson.PsuedoizerPackage
 	[InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)]
 	[Guid(GuidList.guidPsuedoizerPackagePkgString)]
 	[ProvideAutoLoad(UIContextGuids80.SolutionExists)]
-	[ProvideOptionPage(typeof(GeneralOptions), "Psuedoizer", "General", 101, 101, true, new[] { "CultureToGenerate" })]
 	public sealed class PsuedoizerPackage : Package
 	{
-		private static Lazy<DTE2> _dte = new Lazy<DTE2>(LoadDTE);
+		internal static PsuedoizerPackage Instance { get; private set; }
 
 		internal static DTE2 DTE { get { return _dte.Value; } }
-		internal static PsuedoizerPackage Instance { get; private set; }
+		private static Lazy<DTE2> _dte = new Lazy<DTE2>(LoadDTE);
 
 		private static DTE2 LoadDTE()
 		{
@@ -56,7 +47,6 @@ namespace JamesJohnson.PsuedoizerPackage
 		/// </summary>
 		public PsuedoizerPackage()
 		{
-			Debug.WriteLine(string.Format(CultureInfo.CurrentCulture, "Entering constructor for: {0}", this.ToString()));
 		}
 
 		/////////////////////////////////////////////////////////////////////////////
@@ -70,12 +60,19 @@ namespace JamesJohnson.PsuedoizerPackage
 		protected override void Initialize()
 		{
 			Instance = this;
+#if DEBUG
+			Logger.Level = PsuedoizerLogLevel.Verbose;
+#else
+			Logger.Level = PsuedoizerLogLevel.Info;
+#endif
+			Logger.Log(PsuedoizerLogLevel.Verbose, "Initializing PsuedoizerPackage");
 
-			Debug.WriteLine (string.Format(CultureInfo.CurrentCulture, "Entering Initialize() of: {0}", this.ToString()));
 			base.Initialize();
 
 			Dispatcher.CurrentDispatcher.BeginInvoke(new Action(() =>
 			{
+				Logger.Log(PsuedoizerLogLevel.Verbose, "Hooking into build event");
+
 				_dte.Value.Events.BuildEvents.OnBuildBegin += BuildEventsOnOnBuildBegin;
 			}), DispatcherPriority.ApplicationIdle, null);
 		}
