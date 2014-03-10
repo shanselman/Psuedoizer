@@ -86,10 +86,10 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Psuedoizer.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Content Include="App.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Psuedoizer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

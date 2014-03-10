@@ -1,7 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsuedoizerConsole", "PsuedoizerConsole.csproj", "{34E910DB-3D14-4891-8B3C-538009CF3CB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsuedoizerPackage", "PsuedoizerPackage\PsuedoizerPackage.csproj", "{BC0E810C-FFB6-4911-A8C6-AC95E587BB10}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PsuedoizerTemplate", "PsuedoizerTemplate\PsuedoizerTemplate.csproj", "{9E98CA03-01C0-4DA4-82F1-F92550205458}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +17,14 @@ Global
 		{34E910DB-3D14-4891-8B3C-538009CF3CB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{34E910DB-3D14-4891-8B3C-538009CF3CB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{34E910DB-3D14-4891-8B3C-538009CF3CB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC0E810C-FFB6-4911-A8C6-AC95E587BB10}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC0E810C-FFB6-4911-A8C6-AC95E587BB10}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC0E810C-FFB6-4911-A8C6-AC95E587BB10}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC0E810C-FFB6-4911-A8C6-AC95E587BB10}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9E98CA03-01C0-4DA4-82F1-F92550205458}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9E98CA03-01C0-4DA4-82F1-F92550205458}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9E98CA03-01C0-4DA4-82F1-F92550205458}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9E98CA03-01C0-4DA4-82F1-F92550205458}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
