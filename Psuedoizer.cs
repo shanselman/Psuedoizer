@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Resources;
 using System.IO;
@@ -155,7 +155,7 @@ namespace Pseudo.Globalization
 
                     writer.Generate();
                     writer.Close();
-                    Console.WriteLine(fileName + ": converted " + textResourcesList.Count + " text resource(s).");
+                    Console.WriteLine(String.Format("{0}: converted {1} text resource(s).", fileName, textResourcesList.Count));
                 }
             }
             else
@@ -178,6 +178,14 @@ namespace Pseudo.Globalization
         /// </returns>
         public static String ConvertToFakeInternationalized(String inputString)
         {
+
+            //check if the input string is a http or https link... if it is, do not localize
+            if (inputString.Contains("http://") || inputString.Contains("https://"))
+            {
+                return inputString;
+            }
+
+
             // Calculate the extra space necessary for pseudo
             // internationalization.  The rules, according to "Developing
             // International Software" is that < 10  characters you should grow
