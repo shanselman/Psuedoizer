@@ -7,8 +7,13 @@ using System.Runtime.CompilerServices;
 // associated with an assembly.
 //
 
+[assembly: AssemblyProductAttribute("Psuedoizer")]
+[assembly: AssemblyCompanyAttribute("Scott Hanselman")]
+[assembly: AssemblyTitleAttribute("Psuedoizer Console")]
 [assembly: AssemblyDescriptionAttribute("Scott Hanselman's Pseudoizer")]
-[assembly: AssemblyCopyrightAttribute("Copyright (c) 2018 Scott Hanselman and John Robbins")]
+[assembly: AssemblyCopyrightAttribute("Copyright (c) 2011 Scott Hanselman and John Robbins")]
+
+[assembly: AssemblyConfiguration("")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		
 
@@ -23,6 +28,7 @@ using System.Runtime.CompilerServices;
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
 
+[assembly: AssemblyVersion("0.1.*")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 
